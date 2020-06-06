@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # Script to change MAC address of specified interface
+#
+#
 
 import subprocess
 import optparse
