@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+AS#!/usr/bin/env python
 # Script to change MAC address of specified interface
 # -i,--interface : name of the interface (eth0)
 # -m,--mac :       new MAC
