@@ -2,6 +2,7 @@
 # Script to change MAC address of specified interface
 # -i,--interface : name of the interface (eth0)
 # -m,--mac :       new MAC
+#
 
 import subprocess
 import optparse
