@@ -7,17 +7,19 @@
 import subprocess
 import optparse
 
+def get_parameters():
+    parser = optparse.OptionParser()
+    parser.add_option("-i", "--interface", dest="interface", help="Interface to change MAC")
+    parser.add_option("-m", "--mac", dest="new_mac", help="New Mac of interface")
+    return parser.parse_args()
+
 def change_mac(interface,new_mac):
     print("[+] Interface " + interface + " changing MAC to " + new_mac + " ...")
     subprocess.call(["ifconfig", interface, "down"])
     subprocess.call(["ifconfig", interface, "hw", "ether", new_mac])
     subprocess.call(["ifconfig", interface, "up"])
 
-
-parser = optparse.OptionParser()
-parser.add_option("-i", "--interface", dest="interface", help="Interface to change MAC")
-parser.add_option("-m", "--mac", dest="new_mac", help="New Mac of interface")
-(option, argument) = parser.parse_args()
-
+(option, argument) = get_parameters()
 change_mac(option.interface,option.new_mac)
-subprocess.call(["ifconfig",option.interface])
+
+subprocess.call("ifconfig " + option.interface  + " | grep ether",shell=True)
