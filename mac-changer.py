@@ -6,6 +6,7 @@
 
 import subprocess
 import optparse
+import re
 
 def get_parameters():
     parser = optparse.OptionParser()
@@ -24,7 +25,19 @@ def change_mac(interface,new_mac):
     subprocess.call(["ifconfig", interface, "hw", "ether", new_mac])
     subprocess.call(["ifconfig", interface, "up"])
 
-option = get_parameters()
-change_mac(option.interface,option.new_mac)
+def check_mac(interface):
+    mac_check = subprocess.check_output(["ifconfig",interface])
+    mac = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w",mac_check)
+    if mac:
+        return mac.group(0)
+    else:
+        return "no mac"
 
-subprocess.call("ifconfig " + option.interface  + " | grep ether",shell=True)
+option = get_parameters()
+
+old_mac_c = check_mac(option.interface)
+print("[+] Old MAC : " + old_mac_c)
+change_mac(option.interface,option.new_mac)
+new_mac_c = check_mac(option.interface)
+print("[+] New MAX : " + new_mac_c)
+
