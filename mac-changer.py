@@ -30,14 +30,12 @@ def check_mac(interface):
     mac = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w",mac_check)
     if mac:
         return mac.group(0)
-    else:
-        return "no mac"
-
+    
 option = get_parameters()
 
-old_mac_c = check_mac(option.interface)
-print("[+] Old MAC : " + old_mac_c)
+mac = check_mac(option.interface)
+print("[+] Old MAC : " + mac)
 change_mac(option.interface,option.new_mac)
-new_mac_c = check_mac(option.interface)
-print("[+] New MAX : " + new_mac_c)
+mac = check_mac(option.interface)
+print("[+] New MAX : " + mac)
 
